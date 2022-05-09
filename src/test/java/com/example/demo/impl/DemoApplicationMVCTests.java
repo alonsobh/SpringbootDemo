@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.impl;
 
+import com.example.demo.DemoApplicationTest;
 import lombok.SneakyThrows;
 import lombok.val;
 import org.junit.jupiter.api.Test;
@@ -15,10 +16,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class DemoApplicationMVCTests {
+class DemoApplicationMVCTests extends DemoApplicationTest {
   @Autowired
   private MockMvc mvc;
 
+  @Override
   @SneakyThrows
   public String getContent(String url) {
     return mvc.perform(get(url).accept(MediaType.APPLICATION_JSON))
@@ -28,14 +30,4 @@ class DemoApplicationMVCTests {
       .getContentAsString();
   }
 
-  @Test
-  void contextLoads() {
-  }
-
-  @Test
-  public void getDefault() {
-    val response = getContent("/");
-
-    assertThat(response).isEqualTo("Hello World");
-  }
 }
